@@ -1,6 +1,7 @@
 package com.example.flowetest;
 
 import androidx.appcompat.app.AppCompatActivity;
+//import android.support.v4.app.ActivityCompat;a
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -14,8 +15,19 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+
 
 public class MainActivity extends AppCompatActivity {
+    //says doesnt work on android since it depends on javax files???
+    if (ActivityCompat.checkSelfPermission(MainActivity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 123);
+    }
+
+        // Permission is not granted
 
     AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
@@ -41,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
-        //finish();
+        finish();
     }
 
     public void processPitch(float pitchInHz) {
@@ -80,4 +92,30 @@ public class MainActivity extends AppCompatActivity {
             noteText.setText("G");
         }
     }
+    /*
+    public void requestPermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) this.context,android.Manifest.permission.RECORD_AUDIO)) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+            builder.setMessage("Enable permission record audio")
+                    .setTitle("Message")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            request();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            request();
+        }
+    }
+    */
 }
