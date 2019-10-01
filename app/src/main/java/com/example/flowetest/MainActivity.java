@@ -20,11 +20,14 @@ import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
 
 import android.os.Bundle;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    static final AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+    AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void processPitch(float pitchInHz) {
 
+        TextView pitchText = findViewById(R.id.pitchText);
         pitchText.setText("" + pitchInHz);
+
+        TextView noteText = findViewById(R.id.noteText);
 
         if(pitchInHz >= 110 && pitchInHz < 123.47) {
             //A
