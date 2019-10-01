@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.flowetest;
 
 import androidx.appcompat.app.AppCompatActivity;
 //import be.tarsos.dsp.io.android.;
@@ -12,6 +12,7 @@ import be.tarsos.dsp.util.fft.FFT;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
+import be.tarsos.dsp.AudioDispatcher;
 //import be.tarsos.dsp.AudioDispatcher;
 //import be.tarsos.dsp.pitch.PitchE;
 
@@ -20,7 +21,10 @@ import be.tarsos.dsp.AudioProcessor;
 
 import android.os.Bundle;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    static final AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
